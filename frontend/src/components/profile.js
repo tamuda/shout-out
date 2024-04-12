@@ -18,12 +18,12 @@ const GenerateProfileColor = () => {
 const Profile = ({ name }) => {
   return (
     <div className="flex items-center flex-row justify-center gap-4 items-center text-stone-400 font-semibold  md:-translate-x-4">
-      <div className="bg-teal-300 bg-blue-300 bg-purple-300 bg-pink-300 bg-red-300 bg-orange-300 bg-yellow-300 bg-green-300 hidden">
+      <div className="bg-teal-600 bg-blue-600 bg-purple-600 bg-pink-600 bg-red-600 bg-orange-600 bg-yellow-600 bg-green-600 hidden">
         Ensure classes are not purged
       </div>
 
       <div
-        className={`h-12 w-12 rounded-full bg-${GenerateProfileColor()}-300`}
+        className={`h-12 w-12 rounded-full bg-${GenerateProfileColor()}-600`}
       ></div>
       <div>{name}</div>
     </div>
