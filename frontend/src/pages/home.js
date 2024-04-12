@@ -1,5 +1,6 @@
 import React from "react";
 import Shoutout from "../components/shoutout";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const shoutouts = [
@@ -25,7 +26,11 @@ const Home = () => {
   };
 
   return (
-    <div className="flex mt-16 w-full min-h-screen lg:rounded-t-[10rem] md:rounded-t-[5rem] rounded-t-3xl bg-slate-50">
+    <motion.div
+      className="flex mt-16 w-full min-h-screen lg:rounded-t-[10rem] md:rounded-t-[5rem] rounded-t-3xl bg-slate-50"
+      layout
+      layoutId={Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000}
+    >
       <div className="flex flex-col gap-4 w-full items-center md:p-16 px-4 py-16">
         {shoutouts.map((shoutout) => (
           <Shoutout
@@ -36,7 +41,7 @@ const Home = () => {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
