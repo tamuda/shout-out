@@ -1,5 +1,6 @@
 import React from "react";
 import Profile from "./profile";
+import axios from "axios";
 
 const deleteIcon = (
   <svg
@@ -18,23 +19,26 @@ const deleteIcon = (
   </svg>
 );
 
-const Shoutout = ({ name, title, text, deleteShout }) => {
+const Shoutout = ({ soid, name, title, text, deleteShout, isAdmin }) => {
+  console.log(isAdmin);
+  //post request to get user by id
+
   return (
     <div className="flex text-sm md:text-[1rem] flex-col gap-4 justify-start text-stone-800 bg-stone-100  py-8 md:px-16 px-8 rounded-3xl md:w-2/3 w-full">
       <div className="flex flex-row justify-between items-center">
         <Profile name={name} />
-        <div
-          onClick={() => deleteShout(name)}
-          className="cursor-pointer flex gap-4 text-gray-400 hover:text-black items-center align-middle text-center"
-        >
-          {deleteIcon}
-        </div>
+        {isAdmin && (
+          <div
+            onClick={() => deleteShout(soid)}
+            className="cursor-pointer flex gap-4 text-gray-400 hover:text-black items-center align-middle text-center"
+          >
+            {deleteIcon}
+          </div>
+        )}
       </div>
       <hr className="w-full border-1 border-gray-200 pb-2" />
-      <div className="font-semibold">
-        {title || "This is the title of the shoutout"}
-      </div>
-      <div>{text}</div>
+
+      <div className=" leading-loose">{text}</div>
     </div>
   );
 };

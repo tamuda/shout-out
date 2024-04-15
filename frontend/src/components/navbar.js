@@ -2,58 +2,36 @@ import React from "react";
 import { useState } from "react";
 // import framer
 import { motion } from "framer-motion";
+import axios from "axios";
+//import context
+import { useUserContext } from "../pages/UserContext";
 
 const Navbar = () => {
   const [showInsert, setShowInsert] = useState(false);
   const [shoutTitle, setShoutTitle] = useState("");
   const [shoutText, setShoutText] = useState("");
-
-  //generate random animal names with last name
-
-  const generateName = () => {
-    //random animals names with last name
-    const names = [
-      "Anonymous Panda",
-      "Youthful Dog",
-      "Calm Cat",
-      "Curious Monkey",
-      "Silly Rabbit",
-      "Wise Owl",
-      "Brave Lion",
-      "Energetic Squirrel",
-      "Friendly Dolphin",
-      "Graceful Swan",
-      "Happy Hedgehog",
-      "Loyal Wolf",
-      "Majestic Eagle",
-      "Playful Otter",
-      "Proud Peacock",
-      "Quiet Mouse",
-      "Regal Tiger",
-      "Shy Turtle",
-      "Sneaky Fox",
-      "Strong Bear",
-      "Sweet Deer",
-      "Swift Cheetah",
-      "Witty Raccoon",
-      "Wondrous Unicorn",
-      "Zany Zebra",
-      "Adventurous Kangaroo",
-      "Clever Coyote",
-    ];
-
-    return names[Math.floor(Math.random() * names.length)];
-  };
+  const { user } = useUserContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!shoutTitle || !shoutText) {
+    console.log("submitting", user);
+    if (!shoutText) {
       alert("Please fill in all fields");
       return;
     }
+
     setShowInsert(!showInsert);
     //alert
+    //submit
+    axios.post("http://localhost:5050/api/v1/shoutoutsapp/shoutouts", {
+      soid: Math.floor(Math.random() * 1000),
+      message: shoutText,
+      userid: user.userId || 1,
+      eventid: 1,
+    }); //soid, message, userid, eventid
+
     alert("Your shout has been submitted!");
+
     console.log("submitted");
     setShoutText("");
     setShoutTitle("");
@@ -108,16 +86,10 @@ const Navbar = () => {
           }} // Animate to full opacity and final position at y=0
           viewport={{ once: true }}
         >
-          <form className="flex flex-col text-sm">
-            <input
-              type="text"
-              name="title"
-              onChange={(e) => setShoutTitle(e.target.value)}
-              autoFocus
-              id="title"
-              placeholder="title"
-              className="w-full px-4 py-2 rounded-lg mt-4 text-black text-xs focus:border-pink-800 focus:outline-pink-600 focus:outline-0"
-            />
+          <form
+            className="flex flex-col text-sm"
+            onSubmit={(event) => handleSubmit(event)}
+          >
             <textarea
               type="text"
               onChange={(e) => setShoutText(e.target.value)}
